@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import mss
+import time
 
 def screen_record():
     mon = {"top": 420, "left": 1320, "width": 800, "height": 600}
