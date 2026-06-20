@@ -1,19 +1,19 @@
 import cv2
 import numpy as np
-import pyscreenshot as ps
+import mss
 
-cv2.namedWindow('screenshot', cv2.WINDOW_GUI_EXPANDED)
-while True:
-    screenshot = ps.grab()
-    frame = np.array(screenshot)
-    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-    cv2.imshow("screenshot", frame)
+def screen_record():
+    mon = {"top": 420, "left": 1320, "width": 800, "height": 600}
 
-    key = cv2.waitKey(1)
-    if key == ord('q'):
-        break
+    title = "screen recorder"
+    sct = mss.MSS()
 
-    if key == ord('s'):
-        cv2.imwrite("output.png", screenshot)
+    while True:
+        img = np.asarray(sct.grab(mon))
 
-cv2.destroyAllWindows()
+        cv2.imshow(title, img)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            cv2.destroyAllWindows()
+            break
+
+screen_record()
